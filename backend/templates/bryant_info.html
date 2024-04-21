@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선수 정보와 득점 레이더 차트</title>
+    <style>
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #content-container {
+            display: flex;
+            align-items: flex-start;
+            max-width: 1000px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        #player-info {
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        #player-info div {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .media-item img {
+            max-width: 100px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        canvas.chart {
+            width: 350px;
+            height: 350px;
+        }
+
+        #chart-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chart {
+            margin-bottom: 20px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div id="content-container">
+        <div id="player-info">
+            <div class="media-item">
+                <img itemprop="image" src="https://www.basketball-reference.com/req/202106291/images/headshots/bryanko01.jpg" alt="Kobe Bryant의 사진">
+            </div>
+            <div>
+                <h1>Kobe Bryant</h1>
+                <p><strong>Kobe Bean Bryant</strong></p>
+                <p>(Black Mamba, KB24, Vino, Showboat, Little Flying Warrior, The Eighth Man, Lord of the Rings)</p>
+                <p><strong>포지션:</strong> Shooting Guard(SG)(슈팅가드) and Small Forward(SM)(스몰 포워드)</p>
+                <p><strong>주 슛 방향:</strong> R(오른손)</p>
+                <p><strong>신체정보:</strong> 6-6, 212lb (198cm, 96kg)</p>
+                <p><strong>출생:</strong> 8월 23일, 1978 in Philadelphia(필라델피아), Pennsylvania(팬실베니아), USA(미국)</p>
+                <p><strong>사망:</strong> 1월 26일, 2020년 (41세)</p>
+                <p><strong>친척:</strong> 아버지 <a href="/players/b/bryanjo01.html" style="color: black;">Joe Bryant(조 브라이언트)</a>; 삼촌 <a href="/players/c/coxch01.html" style="color: black;">Chubby Cox(처비 콕스)</a></p>
+                <p><strong>고등학교:</strong> Lower Merion in Ardmore(로워 메어리언 인 아아드모어), Pennsylvania(펜실 베니아 주)</p>
+                <p><strong>경력 기간:</strong> 20년</p>
+                <p><strong>드래프트:</strong> <a href="/teams/CHA/draft.html" style="color: black;">샬럿 호네츠 </a>, 1라운드(13순위, 전체 13순위),, <a href="/draft/NBA_1996.html" style="color: black;">1996 NBA Draft</a></p>
+                <p><strong>NBA 데뷔:</strong> <a href="/boxscores/199611030LAL.html" style="color: black;"> 1996년 11월 3일</a></p>
+            </div>
+        </div>
+
+        <div id="chart-container">
+            <canvas id="chart1" class="chart"></canvas>
+            <canvas id="chart2" class="chart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        var ctx1 = document.getElementById('chart1').getContext('2d');
+        var ctx2 = document.getElementById('chart2').getContext('2d');
+
+        var chart1 = new Chart(ctx1, {
+            type: 'radar',
+            data: {
+                labels: ['2011-12', '2012-13', '2013-14', '2014-15', '2015-16', '2016-17', '2017-18', '2018-19', '2019-20', '2020-21', '2021-22', '2022-23', '2023-24'],
+                datasets: [{
+                    label: '득점',
+                    data: [18.5, 22.5, 20.8, 21.7, 19.6, 25.2, 24.4, 23.8, 27.4, 26.9, 27.4, 27.1, 25.6],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scale: {
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var chart2 = new Chart(ctx2, {
+            type: 'radar',
+            data: {
+                labels: ['2011-12', '2012-13', '2013-14', '2014-15', '2015-16', '2016-17', '2017-18', '2018-19', '2019-20', '2020-21', '2021-22', '2022-23', '2023-24'],
+                datasets: [{
+                    label: '리바운드',
+                    data: [3.7, 3.7, 3.6, 3.2, 3.0, 3.2, 3.8, 5.0, 5.2, 4.8, 4.4, 5.1, 5.0],
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scale: {
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
